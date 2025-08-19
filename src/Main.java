@@ -1,43 +1,76 @@
-import Book.Book;
-import CustomBookArray.CustomBookArray;
-
 public class Main {
     public static void main(String[] args) {
-        // Create a Book instance
-        Book bookA = new Book("Effective Java", "Joshua Bloch", "375");
-        System.out.println("Single Book:");
-        System.out.println(bookA);
+        BookManagement manager = new BookManagement();
 
-        // Create a CustomBookArray and add books
-        CustomBookArray shelf = new CustomBookArray();
-        shelf.add(bookA);
-        shelf.add(new Book("Clean Code", "Robert C. Martin", "464"));
-        shelf.add(new Book("Refactoring", "Martin Fowler", "431"));
-        shelf.add(new Book("Design Patterns", "Erich Gamma", "395"));
+        // Sample input 1
+        Book book1 = new Book("Apple Invasion", "Tim Hill", 200);
+        Book book2 = new Book("Bambi", "Felix Salten", 150);
+        // Sample input 2
+        Book book3 = new Book("animal farm", "John Doe", 100);
+        Book book4 = new Book("batman returns", "Alfred Hugh", 350);
+        // Sample input 3 — simulate a search
+        Book book5 = new Book("Apple Invasion 1", "Tim Hill", 200);
+        Book book6 = new Book("Apple Invasion 5", "Tim Hill", 200);
+        Book book7 = new Book("Apple Invasion 7", "Tim Hill", 200);
+        Book book8 = new Book("Apple Invasion 8", "Tim Hill", 200);
+        Book book9 = new Book("Apple Invasion 9", "Tim Hill", 200);
+        Book book10 = new  Book("Apple Invasion 10", "Tim Hill", 200);
+        Book book11 = new Book("Apple Invasion 11", "Tim Hill", 200);
+        Book book12 = new Book("cucumber Invasion", "Tim Hill", 200);
+        Book book13 = new Book("durian Invasion", "Tim Hill", 200);
 
-        // Print all books
-        System.out.println("\nBooks on Shelf:");
-        printBooks(shelf);
+        manager.add(book1);
+        manager.add(book2);
 
-        // Delete a book
-        System.out.println("\nDeleting 'Clean Code'...");
-        shelf.delete("Clean Code");
+        manager.display('a'); // Expected: A: [Apple Invasion, null]
+        manager.display('B'); // Expected: B: [Bambi, null]
 
-        // Print updated list
-        System.out.println("\nAfter Deletion:");
-        printBooks(shelf);
+        manager.add(book3);
+        manager.add(book4);
 
-        // Show current array size
-        System.out.println("\nCurrent array size: " + shelf.getArraySize());
-    }
+        manager.display('a'); // Expected: A: [Apple Invasion, animal farm]
+        manager.display('B'); // Expected: B: [Bambi, batman returns]
 
-    // ✅ Corrected helper method to print only stored books
-    public static void printBooks(CustomBookArray shelf) {
-        for (int i = 0; i < shelf.getArraySize(); i++) {
-            Book book = shelf.getBookAt(i);
-            if (book != null) {
-                System.out.println(book);
-            }
-        }
+        manager.add(book5);
+        manager.add(book6);
+        manager.add(book7);
+
+        manager.display('A'); // Expected: A: [Apple Invasion, animal farm, Apple Invasion 1, Apple Invasion 5, Apple Invasion 7]
+
+        manager.searchBook("Apple Invasion"); // Expected: Found - Title: Apple Invasion 1 Author: Tim Hill Page: 200
+        manager.searchBook("Apple Invasion 15");
+
+
+        //manager.delete("Apple Invasion 1");
+        manager.display('A');
+        manager.getArraySize('a');
+        manager.display('b');
+        manager.getArraySize('B');
+
+        manager.add(book8);
+        manager.add(book9);
+        manager.add(book10);
+        manager.display('A');
+        manager.getArraySize('a');
+
+        manager.add(book11);
+        manager.display('A');
+        manager.getArraySize('a');
+
+        manager.add(book12);
+        manager.add(book13);
+
+//        manager.delete("Bambi");
+//        manager.display('b');
+//        manager.getArraySize('B');
+//
+        manager.getArraySize('a');
+        manager.delete("Apple Invasion 10");
+        manager.display('a');
+        manager.getArraySize('a');
+        manager.delete("Apple Invasion 9");
+        manager.display('a');
+        manager.getArraySize('a');
+
     }
 }
